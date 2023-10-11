@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+<script src="plotsquares.js"></script>
+<style type="text/css">
+    body {
+        background-color: #EEE;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .state-gray {background-color: rgb(231, 229, 227);}
+    .state-orange {background-color: rgb(248, 224, 181);}
+    .state-blue {background-color: rgb(207, 233, 249);}
+    .state-green {background-color: rgb(207, 249, 207);}
+    .ticket {border-radius: 5px; 
+        border: 2px solid #AAA;
+        display:flex;
+        width:250;
+        height:100px;
+        padding:20px;
+        text-align: center;
+        }
+    .ticket h3 {
+        font-family: Arial, Helvetica, sans-serif;
+        display:table-cell;
+        text-align: center;
+        position: relative;
+        top:-20px;
+    }
+    .ticket  p {
+        font-family: Arial, Helvetica, sans-serif;
+        display:table-cell;
+        text-align: center;
+        position: relative;
+        top:10px;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+}
+
+</style>
+
+</head>
+    <body>
+        <h2>tracking units</h2>
+<div id="squares" class="grid">
+
+</div>
+
+<script>displayTickets()</script>
+</body>
+
+    </html>
