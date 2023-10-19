@@ -1,7 +1,10 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-<script src="plotsquares.js"></script>
+        <script src="arrayOps.js"></script>
+        <script src="data.js"></script>
+        <script src="tags.js"></script>
+        <script src="plotsquares.js"></script>
 <style type="text/css">
     body {
         background-color: #EEE;
@@ -9,47 +12,67 @@
     }
 
     .state-gray {background-color: rgb(231, 229, 227);}
-    .state-orange {background-color: rgb(248, 224, 181);}
-    .state-blue {background-color: rgb(207, 233, 249);}
-    .state-green {background-color: rgb(207, 249, 207);}
-    .ticket {border-radius: 5px; 
-        border: 2px solid #AAA;
-        display:flex;
-        width:250;
+    .state-orange {background-color: rgb(248, 224, 181); border: 1px solid rgb(252, 197, 95); color: rgb(141, 111, 54);}
+    .state-blue {background-color: rgb(207, 233, 249); border: 1px solid rgb(107, 194, 249); color: rgb(66, 120, 154)}
+    .state-green {background-color: rgb(207, 249, 207); border: 1px solid rgb(111, 253, 111); color: rgb(64, 144, 64)}
+    .state-hidden { background-color:inherit; border: 1px dashed  rgb(208, 205, 205); color: rgb(202, 201, 201)}
+    .ticket { 
+        border-radius: 5px; 
+        /* border: 2px solid #AAA; */
+        display:block;
         height:100px;
         padding:20px;
-        text-align: center;
+        text-align: left;
+        }
+    .ticket-hidden {
+        display:none;
         }
     .ticket h3 {
         font-family: Arial, Helvetica, sans-serif;
-        display:table-cell;
-        text-align: center;
-        position: relative;
-        top:-20px;
     }
     .ticket  p {
         font-family: Arial, Helvetica, sans-serif;
-        display:table-cell;
-        text-align: center;
-        position: relative;
-        top:10px;
     }
     .grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 10px;
-}
+    }
+    .tictag {
+        border: none;
+        background-color: rgb(166, 160, 118);
+        color: aliceblue;
+        padding-left:10px;
+        padding-right:10px;
+        border-radius: 999px;
+    }
+    .tictag-off {
+        border: none;
+        background-color: rgb(166, 160, 118);
+        color: rgb(210, 211, 211);
+        padding-left:10px;
+        padding-right:10px;
+        border-radius: 999px;
+    }
+    .tictag-on {
+        border: none;
+        background-color: rgb(59, 165, 69);
+        color:rgb(197, 255, 203);
+        padding-left:10px;
+        padding-right:10px;
+        border-radius: 999px;
+    }
 
 </style>
 
 </head>
     <body>
         <h2>tracking units</h2>
-<div id="squares" class="grid">
+        <div id="tagbar"></div>
+        <div id="squares" class="grid"></div>
 
-</div>
-
-<script>displayTickets()</script>
+        <script>displayTrackablesInOrder()</script>
+        <script>displayTagbar()</script>
 </body>
 
     </html>
