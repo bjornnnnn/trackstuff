@@ -10,20 +10,23 @@ function showHideTagFilteredElems(){
     // global_toggle_state holds all tag states
     // Check if ticket i has state j and show if j is true.
     // Tickets with no tags shall always show.
+    // Showing tickets according to OR conditional if a trackable has more than one tag.
     const trackableLabels = Object.keys(data)
     for (var i in trackableLabels){
         let trackableObj = data[trackableLabels[i]]
         let e = document.getElementById(trackableObj.id)
         const stateKeys = Object.keys(global_toggle_state)
         for (var j in stateKeys){
-            console.debug(`Style toggling elem: ${trackableObj.id} -> ${stateKeys[j]}`)
+            // OR Rule gives that if a trackable has at least one tag that is toggled on
+            // it shall show up. 
+            //console.debug(`Style toggling elem: ${trackableObj.id} -> ${stateKeys[j]}`)
             if (trackableObj.tags.includes(stateKeys[j]) ){
                 if (global_toggle_state[stateKeys[j]]){
-                    console.debug(`...set on`)
+                    //console.debug(`...set on`)
                     e.setAttribute("class","ticket " + statelut[trackableObj.status]) 
-                    
+                    break // The OR-rule: stop hiding things if at least one tag is present.
                 } else {
-                    console.debug(`...set off`)
+                    //console.debug(`...set off`)
                     e.setAttribute("class","ticket-hidden state-hidden") 
                     
                 }
@@ -34,7 +37,7 @@ function showHideTagFilteredElems(){
 
 
 function user_clicks_tagMain(state){
-    console.info("Clicked tagMain:" + state)
+    //console.info("Clicked tagMain:" + state)
     toggle(state)
     elemStyleToggle(getToggleState(state), "tag_" + state, "tictag-on", "tictag-off")
     showHideTagFilteredElems()
@@ -58,7 +61,6 @@ function tagElem(tagName){
 }
 
 // Drag and drop reorder begin -->
-
 
 /* Any ticket shall be draggable to all other tickets. 
    If a ticket is dropped on another ticket 
@@ -138,14 +140,14 @@ function displayTrackablesInOrder(){
     }
 
 }
-
+/* 
 function displayTickets(data){
     const e = document.getElementById("squares")
     for (i in data){
         e.appendChild(plotsq(data[i], statelut ))
     }
 }
-
+ */
 function displayTagbar(){
     let tb = document.getElementById("tagbar")
     const tags = getTagList()
@@ -153,4 +155,28 @@ function displayTagbar(){
         let t = tagElemMain(tags[i])
         tb.appendChild(t)
     }
+}
+
+// Replace internal data with user provided csv
+function syncCSVIn(){
+    let jsondata = parseArea("csvArea")
+    dataOrder = jsondata.map(e => e.id)
+    data = jsondata
+    let squares  = document.getElementById("squares")
+    squares.innerHTML = ""
+    displayTrackablesInOrder()
+    let tb = document.getElementById("tagbar")
+    tb.innerHTML = ""
+    displayTagbar()
+}
+
+// Show internal data in parse area for csv.
+function syncCSVOut(){
+    let outStr = ""
+    header = ["id", "title", "status", "tags"]
+    outStr = outStr + header.join(";") + "\n";  
+    data.forEach(o => outStr = outStr + `${o[header[0]]};${o[header[1]]};${o[header[2]]};${o[header[3]]}\n`)
+    let pa = document.getElementById("csvArea")
+    console.debug(`csv data: ${outStr}`)
+    pa.value  = outStr
 }

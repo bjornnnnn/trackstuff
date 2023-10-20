@@ -5,13 +5,19 @@
         <script src="data.js"></script>
         <script src="tags.js"></script>
         <script src="plotsquares.js"></script>
+        <script src="csvparser.js"></script>
 <style type="text/css">
     body {
         background-color: #EEE;
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    .state-gray {background-color: rgb(231, 229, 227);}
+    #tagbar{ border: 2px solid #FAFAFA;
+        background-color: #FFF;
+        padding: 5px;
+    }
+
+    .state-gray {background-color: rgb(250, 249, 249);}
     .state-orange {background-color: rgb(248, 224, 181); border: 1px solid rgb(252, 197, 95); color: rgb(141, 111, 54);}
     .state-blue {background-color: rgb(207, 233, 249); border: 1px solid rgb(107, 194, 249); color: rgb(66, 120, 154)}
     .state-green {background-color: rgb(207, 249, 207); border: 1px solid rgb(111, 253, 111); color: rgb(64, 144, 64)}
@@ -47,32 +53,42 @@
         border-radius: 999px;
     }
     .tictag-off {
-        border: none;
-        background-color: rgb(166, 160, 118);
-        color: rgb(210, 211, 211);
+        border: 1px dashed rgb(181, 179, 179);
+        background-color: rgb(209, 209, 209);
+        color: rgb(128, 130, 130);
         padding-left:10px;
         padding-right:10px;
         border-radius: 999px;
     }
     .tictag-on {
         border: none;
-        background-color: rgb(59, 165, 69);
-        color:rgb(197, 255, 203);
+        background-color: rgb(143, 141, 141);
+        color:rgb(231, 231, 254);
         padding-left:10px;
         padding-right:10px;
         border-radius: 999px;
     }
+    textarea {display: block;}
 
 </style>
 
 </head>
     <body>
-        <h2>tracking units</h2>
+        <h2>Tracking Units</h2>
         <div id="tagbar"></div>
         <div id="squares" class="grid"></div>
 
         <script>displayTrackablesInOrder()</script>
         <script>displayTagbar()</script>
+    
+        <div id="importexportcsv">
+            <h3>Import export csv</h3>
+            <span>
+                <button name="synccsv" onclick="javascript:syncCSVIn()" value="Sync-in">Sync-In</button>
+                <button name="synccsv" onclick="javascript:syncCSVOut()" value="Sync-out">Sync-Out</button>
+            </span>
+            <textarea id = "csvArea" rows="40" cols="100"></textarea>
+        </div>
 </body>
 
     </html>
